@@ -27,11 +27,11 @@ class Solution {
         return reverse(head, null);
     }
     /*recursive*/
-    public ListNode reverse(ListNode head, ListNode temp){
+    public ListNode reverse(ListNode head, ListNode prehead){
         if (head == null)
-            return temp;
+            return prehead;
         ListNode newhead = head.next;
-        head.next = temp;
+        head.next = prehead;
         return reverse(newhead, head);
     }
 }
