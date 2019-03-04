@@ -1,28 +1,39 @@
-/**
- * Definition for singly-linked list with a random pointer.
- * class RandomListNode {
- *     int label;
- *     RandomListNode next, random;
- *     RandomListNode(int x) { this.label = x; }
- * };
- */
-public class Solution {
-    public RandomListNode copyRandomList(RandomListNode head) {
-        if (head==null) return null;
-        HashMap <RandomListNode, RandomListNode> map = new HashMap<>();
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node next;
+    public Node random;
 
-        RandomListNode temp = head;
-        while (temp!=null){
-            map.put(temp, new RandomListNode(temp.label));
-            temp = temp.next;
-        }
+    public Node() {}
 
-        temp = head;
-        while(temp !=null){
-            map.get(temp).next = map.get(temp.next);
-            map.get(temp).random = map.get(temp.random);
-            temp = temp.next;
+    public Node(int _val,Node _next,Node _random) {
+        val = _val;
+        next = _next;
+        random = _random;
+    }
+};
+*/
+import java.util.Hashtable;
+class Solution {
+    public Node copyRandomList(Node head) {
+        if(head==null)
+            return null;
+        Hashtable<Node, Node> random_target= new Hashtable<>();
+        Node tmp = head;
+        while(tmp!=null){
+            random_target.put(tmp, new Node(tmp.val, tmp.next, tmp.random));
+            tmp = tmp.next;
         }
-        return map.get(head);
+        Node res = random_target.get(head);
+        tmp = head;
+        Node tmp2 = res;
+        while(tmp!=null){
+            tmp2.next = (tmp.next==null)?null:random_target.get(tmp.next);
+            tmp2.random = (tmp.random==null)? null: random_target.get(tmp.random);
+            tmp = tmp.next;
+            tmp2 = tmp2.next;
+        }
+        return res;
     }
 }
