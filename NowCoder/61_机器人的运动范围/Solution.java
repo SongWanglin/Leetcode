@@ -10,13 +10,13 @@ public class Solution {
     }
         private int move(int threshold, int rows, int cols,
                             int i, int j, boolean[][] map){
-            int res = 0;
             if(!valid_Move(threshold, rows, cols, i, j) ){
-                return res;
+                return 0;
             }
+            int res = 0;
             if(!map[i][j]){
                 map[i][j] = true;
-                res = 1+move(threshold, rows, cols, i-1, j, map)
+                res =  1+move(threshold, rows, cols, i-1, j, map)
                        +move(threshold, rows, cols, i+1, j, map)
                        +move(threshold, rows, cols, i, j-1, map)
                        +move(threshold, rows, cols, i, j+1, map);
