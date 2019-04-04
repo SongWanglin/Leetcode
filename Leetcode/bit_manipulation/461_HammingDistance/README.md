@@ -20,4 +20,4 @@ Given two integers x and y, calculate the Hamming distance.
 
        ↑   ↑
 
-The above arrows point to positions where the corresponding bits are different.
+The above arrows point to positions where the corresponding bits are different
