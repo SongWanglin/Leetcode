@@ -1,42 +1,24 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-       ArrayList<Integer> soln = new ArrayList<Integer>();
-       if (s.length() == 0 || p.length() == 0 || s.length() < p.length()){
-           return new ArrayList<Integer>();
-       }
-       int[] chars = new int[26];
-       for (Character c : p.toCharArray()){
-           chars[c-'a']++;
-       }
-       int start = 0, end = 0, len = p.length(), diff = len;
-       char temp;
-       for (end = 0; end < len; end++){
-           temp = s.charAt(end);
-           chars[temp-'a']--;
-           if (chars[temp-'a'] >= 0){
-               diff--;
-           }
-       }
-       if (diff == 0){
-           soln.add(0);
-       }
-       while (end < s.length()){
-           temp = s.charAt(start);
-           if (chars[temp-'a'] >= 0){
-               diff++;
-           }
-           chars[temp-'a']++;
-           start++;
-           temp = s.charAt(end);
-           chars[temp-'a']--;
-           if (chars[temp-'a'] >= 0){
-               diff--;
-           }
-           if (diff == 0){
-               soln.add(start);
-           }
-           end++;
-       }
-       return soln;
+        int[] chars = new int[26];
+        List<Integer> result = new ArrayList<>();
+        if (s == null || p == null || s.length() < p.length()){
+            return result;
+        }
+        for (char c : p.toCharArray()){
+            chars[c-'a']++;
+        }
+        int start = 0, end = 0, count = p.length();
+        while (end < s.length()) {
+        // If the char at start appeared in p, we increase count
+            if (end - start == p.length() && chars[s.charAt(start++)-'a']++ >= 0)
+                count++;
+        // If the char at end appeared in p (since it's not -1 after decreasing), we decrease count
+            if (--chars[s.charAt(end++)-'a'] >= 0)
+                count--;
+            if (count == 0)
+                result.add(start);
+        }
+        return result;
     }
 }
