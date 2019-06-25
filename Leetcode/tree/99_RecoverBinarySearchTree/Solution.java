@@ -13,19 +13,19 @@ class Solution {
         TreeNode firstNode = null;
         TreeNode secondNode = null;
         TreeNode pre = new TreeNode(Integer.MIN_VALUE);
-        TreeNode p = root;
-        while(p!=null || !stack.isEmpty() ){
-            while( p!=null ){
-                stack.push(p);
-                p = p.left;
+        TreeNode current = root;
+        while(current!=null || !stack.isEmpty() ){
+            while( current!=null ){
+                stack.push(current);
+                current = current.left;
             }
-            p = stack.pop();
+            current = stack.pop();
             // check if previous node value is greater than current node value during in order traversal
-            if(firstNode == null && pre.val > p.val) firstNode = pre;
-            if(firstNode != null && pre.val > p.val) secondNode = p;
+            if(firstNode == null && pre.val > current.val) firstNode = pre;
+            if(firstNode != null && pre.val > current.val) secondNode = current;
             /************/
-            pre = p;
-            p = p.right;
+            pre = current;
+            current = current.right;
         }
         int tmp = firstNode.val;
         firstNode.val = secondNode.val;
