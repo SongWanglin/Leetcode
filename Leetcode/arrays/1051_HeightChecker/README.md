@@ -8,11 +8,11 @@ Return the minimum number of students not standing in the right positions.  (Th
 
 **Example 1:**
 
-**Input: **[1,1,4,2,1,3]
+**Input:**[1,1,4,2,1,3]
 
-**Output: **3
+**Output:**3
 
-**Explanation: **
+**Explanation:**
 
 Students with heights 4, 3 and the last 1 are not standing in the right positions.
 
