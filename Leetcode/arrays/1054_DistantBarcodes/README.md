@@ -9,15 +9,15 @@ Rearrange the barcodes so that no two adjacent barcodes are equal.  You may ret
 
 **Example 1:**
 
-**Input: **[1,1,1,2,2,2]
+**Input:** [1,1,1,2,2,2]
 
-**Output: **[2,1,2,1,2,1]
+**Output:** [2,1,2,1,2,1]
 
 **Example 2:**
 
-**Input: **[1,1,1,1,2,2,3,3]
+**Input:** [1,1,1,1,2,2,3,3]
 
-**Output: **[1,3,1,3,2,1,2,1]
+**Output:** [1,3,1,3,2,1,2,1]
 
  
 
