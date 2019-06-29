@@ -34,7 +34,7 @@ to the starting pixel.
 
 **Note:**
 
-The length of image and image[0] will be in the range [1, 50].
+The length of image and image[0] will be in the range [1, 50] .
 
 The given starting pixel will satisfy 0 &lt;= sr &lt; image.length and 0 &lt;= sc &lt; image[0].length.
 
