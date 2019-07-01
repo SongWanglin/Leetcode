@@ -1,4 +1,5 @@
 class Solution {
+    /*/
     public List<Integer> pathInZigZagTree(int label) {
         int k = 0;
         while( (int)Math.pow(2, k)-1 <= label) k++;
@@ -36,4 +37,23 @@ class Solution {
                 arr[j] = tmp;
             }
         }
+    /*/
+    public List<Integer> pathInZigZagTree(int label) {
+        int rows = -1;
+        int cur = label;
+        while(cur>0){
+            int curRowLen = (int)Math.pow(2,++rows);
+            cur-=curRowLen;
+        }
+        List<Integer> res = new ArrayList();
+        res.add(label);
+        while(label>1){
+            int lastStart = (int)Math.pow(2,--rows);
+            int lastLabel = lastStart*3-1-label/2;
+            res.add(lastLabel);
+            label = lastLabel;
+        }
+        Collections.reverse(res);
+        return res;
+    }
 }
