@@ -8,30 +8,23 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-       /* iterative solution */
+       /* recursive solution */
         /*/
         if (head == null || head.next == null)
             return head;
-        ListNode temp = head.next;
-        ListNode newhead = temp;
-        head.next = temp.next;
-        newhead.next = head;
-        while(head.next!=null){
-            newhead = head.next;
-            head.next = newhead.next;
-            newhead.next = temp;
-            temp = newhead;
+        ListNode newList = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newList;/*/
+        /* iterative solution */
+        ListNode next = null;
+        ListNode preHead = null;
+        while(head!=null){
+            next = head.next;
+            head.next = preHead;
+            preHead = head;
+            head = next;
         }
-        return newhead;
-        /*/
-        return reverse(head, null);
-    }
-    /*recursive*/
-    public ListNode reverse(ListNode head, ListNode prehead){
-        if (head == null)
-            return prehead;
-        ListNode newhead = head.next;
-        head.next = prehead;
-        return reverse(newhead, head);
+        return preHead;
     }
 }
