@@ -8,6 +8,7 @@
  * }
  */
 class Solution {
+    /*/
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> currentLevel = new ArrayList<>();
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -31,5 +32,20 @@ class Solution {
                     bfs(nextlevel);
                 }
             }
-        }
+        }/*/
+    public List<List<Integer>> levelOrder(TreeNode root){
+        List<List<Integer>> res = new LinkedList<List<Integer>>();
+        bfs(res, root, 0);
+        return res;
+    }
+
+            private void bfs(List<List<Integer>> list, TreeNode root, int level) {
+                if(root == null) return;
+                if(level >= list.size()) {
+                    list.add(new LinkedList<Integer>());
+                }
+                bfs(list, root.left, level+1);
+                bfs(list, root.right, level+1);
+                list.get(level).add(root.val);
+            }
 }
