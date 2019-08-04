@@ -14,12 +14,11 @@ class Solution {
             count(root);
             return Math.max(Math.max(left, right), n - left - right - 1) > n / 2;
     }
-        private int count(TreeNode node) {
+        private int count(TreeNode node, int left, int right, int val) {
             if (node == null) return 0;
             int l = count(node.left), r = count(node.right);
             if (node.val == val) {
-                left = l;
-                right = r;
+                left = l;   right = r;
             }
             return l + r + 1;
         }
