@@ -9,6 +9,15 @@
  */
 class Solution {
 public:
+    /*/// recursive
+    int kthSmallest(TreeNode* root, int& k) {
+        if (root) {
+            int x = kthSmallest(root->left, k);
+            return k==0 ? x : !--k ? root->val : kthSmallest(root->right, k);
+        }
+    }
+    /*/
+    //iterative solution
     int kthSmallest(TreeNode* root, int k) {
         stack<TreeNode*> stk;
         while(root!=nullptr){
