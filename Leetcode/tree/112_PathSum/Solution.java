@@ -9,15 +9,8 @@
  */
 class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
-        if (root == null) return false;
-        if (root.left == null && root.right ==null){
-            return root.val == sum;
-        } else{
-            if (root.left!=null)
-                root.left.val += root.val;
-            if (root.right!=null)
-                root.right.val += root.val;
-        }
-        return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+        if(root==null) return false;
+        if(root.left==null && root.right==null) return root.val==sum;
+        return hasPathSum(root.left, sum-root.val)||hasPathSum(root.right, sum-root.val);
     }
 }
