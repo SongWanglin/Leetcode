@@ -9,19 +9,16 @@
  */
 class Solution {
     public TreeNode sortedArrayToBST(int[] nums) {
-        if (nums.length == 0)
-            return null;
-        TreeNode root = subtree(nums, 0, nums.length-1);
-        return root;
+        if(nums.length==0) return null;
+        return dfs(nums, 0, nums.length-1);
     }
-        private TreeNode subtree (int[] nums, int low, int high){
-            if(low>high){
-                return null;
-            }
-            int mid = (low+high)/2;
+        private TreeNode dfs(int[] nums,
+                             int start, int end){
+            if(start>end) return null;
+            int mid = (start+end)/2;
             TreeNode root = new TreeNode(nums[mid]);
-            root.left = subtree(nums, low, mid-1);
-            root.right = subtree(nums, mid+1, high);
+            root.left = dfs(nums, start, mid-1);
+            root.right = dfs(nums, mid+1, end);
             return root;
         }
 }
