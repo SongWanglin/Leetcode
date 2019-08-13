@@ -9,11 +9,9 @@
  */
 class Solution {
     public boolean isUnivalTree(TreeNode root) {
-        if (root==null)
-            return true;
-        boolean resLeft = (root.left!=null)? (root.val == root.left.val):true;
-        boolean resRight = (root.right!=null)? (root.val == root.right.val):true;
-        boolean res = resLeft && resRight;
-        return res && isUnivalTree(root.left) &&isUnivalTree(root.right);
+        if(root==null) return true;
+        boolean left = (root.left==null)?true:root.val==root.left.val;
+        boolean right = (root.right==null)?true:root.val==root.right.val;
+        return left&&right&&isUnivalTree(root.left)&&isUnivalTree(root.right);
     }
 }

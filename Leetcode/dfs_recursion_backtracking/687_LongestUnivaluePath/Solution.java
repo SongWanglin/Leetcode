@@ -8,21 +8,31 @@
  * }
  */
 class Solution {
-    int res = 0;
-    // res is the sum of longest left path and longest right path
     public int longestUnivaluePath(TreeNode root) {
-        dfs(root, null);
-        // dfs return 0 for root node, and return the longest direct path length from child node to its parent node
-        return res;
+    /*/
+        if(root==null) return 0;
+        int[] res = new int[1];
+        univalueAtRoot(root, root.val, res);
+        return res[0];
     }
-        private int dfs(TreeNode node, TreeNode parent){
-            if (node==null )
+        private int univalueAtRoot(TreeNode root, int val, int[] res){
+            if(root==null) return 0;
+            int left = univalueAtRoot(root.left, root.val, res);
+            int right = univalueAtRoot(root.right, root.val, res);
+            res[0] = Math.max(res[0], left+right);
+            return (root.val==val)? 1+Math.max(left, right): 0;
+        }
+    public int longestUnivaluePath(TreeNode root) {/*/
+        int[] res = new int[1];
+        dfs(root, null, res);
+        return res[0];
+    }
+        private int dfs(TreeNode current, TreeNode parent, int[] res){
+            if (current==null)
                 return 0;
-            // terminating condition for recursion
-            int left = dfs(node.left, node);
-            int right = dfs(node.right, node);
-            res = (res>left+right)? res: left+right;
-            // result is the sum of 2 direct paths' length from child node
-            return (parent!=null&&node.val == parent.val)? Math.max(left, right)+1: 0;
+            int left = dfs(current.left, current, res);
+            int right = dfs(current.right, current, res);
+            res[0] = Math.max( res[0], left+right );
+            return (parent!=null && current.val == parent.val)? Math.max(left, right)+1: 0;
         }
 }
