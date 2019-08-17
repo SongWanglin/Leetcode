@@ -8,19 +8,31 @@
  * }
  */
 class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
-        LinkedList<Integer> res = new LinkedList<>();
-        Deque<TreeNode> queue = new ArrayDeque<>();
+    public List<Integer> postorderTraversal(TreeNode root){
         TreeNode temp = root;
-        while (!queue.isEmpty() || temp!=null){
-            if(temp!=null){
-                queue.push (temp);
-                res.addFirst(temp.val);
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stk = new Stack<>();
+        while( temp!=null||!stk.isEmpty() ){
+            while(temp!=null){
+                stk.push(temp);
+                res.add(0, temp.val);
                 temp = temp.right;
-            } else{
-                temp = queue.pop().left;
             }
+            temp = stk.pop();
+            temp = temp.left;
         }
         return res;
     }
+    /*/ // binary tree postorder traversal
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        dfs(res, root);
+        return res;
+    }
+        private void dfs(List<Integer> res, TreeNode root){
+            if(root==null) return;
+            dfs(res, root.left);
+            dfs(res, root.right);
+            res.add(root.val);
+        }/*/
 }
