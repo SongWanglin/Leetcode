@@ -8,13 +8,10 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        if (head==null || head.next==null)
-            return head;
-        ListNode temp = head.next;
-        head.next = temp.next;
-        temp.next = head;
-        head.next = swapPairs(head.next);
-        head = temp;
-        return head;
+        if(head==null || head.next==null) return head;
+        ListNode res = head.next, next = head.next.next;
+        res.next = head;
+        head.next = swapPairs(next);
+        return res;
     }
 }
