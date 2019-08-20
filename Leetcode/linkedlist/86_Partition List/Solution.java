@@ -8,19 +8,20 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
-        ListNode dummyHead1 = new ListNode(-1), dummyHead2 = new ListNode(-1);
-        ListNode cur1 = dummyHead1, cur2 = dummyHead2;
+        ListNode dummy1 = new ListNode(-1), dummy2 = new ListNode(-1),
+            smallTail = dummy1, greatTail = dummy2;
         while(head!=null){
-            if(head.val<x){
-                cur1.next = new ListNode(head.val);
-                cur1 = cur1.next;
-            } else{
-                cur2.next = new ListNode(head.val);
-                cur2 = cur2.next;
+            if(head.val < x){
+                smallTail.next = head;
+                smallTail = smallTail.next;
+            }else{
+                greatTail.next = head;
+                greatTail = greatTail.next;
             }
             head = head.next;
         }
-        cur1.next= dummyHead2.next;
-        return dummyHead1.next;
+        greatTail.next = null;
+        smallTail.next = dummy2.next;
+        return dummy1.next;
     }
 }

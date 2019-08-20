@@ -32,4 +32,3 @@ class Solution(object):
             tail = tail.next
         tail.next = self.reverseKGroup(nextHead, k)
         return head
-
