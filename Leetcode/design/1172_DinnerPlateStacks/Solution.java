@@ -1,3 +1,61 @@
+class DinnerPlates { // priority queue solution
+    PriorityQueue<Integer> available;
+    int cap;
+    int max;
+    Map<Integer, ArrayDeque<Integer>> map;
+    public DinnerPlates(int capacity) {
+        this.cap = capacity;
+        this.map = new HashMap();
+        this.max = 0;
+        map.put(max, new ArrayDeque<>());
+        available = new PriorityQueue<>();
+    }
+
+    public void push(int val) {
+        if(!available.isEmpty()){
+            int index = available.poll();
+            map.get(index).add(val);
+            return;
+        }
+        while(map.containsKey(max) && map.get(max).size()==cap){
+            max++;
+        }
+        if(!map.containsKey(max))
+            map.put(max, new ArrayDeque<>());
+        map.get(max).add(val);
+    }
+
+    public int pop() {
+        if(max==-1){
+            max = 0;
+            return -1;
+        }
+        if(map.get(max).size()==0){
+            max--;
+            return pop();
+        }
+        int res = map.get(max).pollLast();
+        if(map.get(max).size()==0) max--;
+        return res;
+    }
+
+    public int popAtStack(int index) {
+        if(!map.containsKey(index)||map.get(index).size()==0)
+            return -1;
+        int res = map.get(index).pollLast();
+        available.offer(index);
+        return res;
+    }
+}
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates obj = new DinnerPlates(capacity);
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.popAtStack(index);
+ */
+/*/ // two pointer solution
 class DinnerPlates {
     Map<Integer, ArrayDeque<Integer>> map;
     int cap;
@@ -43,7 +101,7 @@ class DinnerPlates {
         current = Math.min(current, index);
         return map.get(index).pollLast();
     }
-}
+} /*/
 
 /**
  * Your DinnerPlates object will be instantiated and called as such:
@@ -52,3 +110,4 @@ class DinnerPlates {
  * int param_2 = obj.pop();
  * int param_3 = obj.popAtStack(index);
  */
+
