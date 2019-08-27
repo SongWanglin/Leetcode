@@ -13,8 +13,12 @@ class Solution(object):
         cur = dummy = ListNode(0)
         dummy.next = head
         prefix = 0
-        m = {}
+        seen = collections.OrderedDict()
         while cur:
             prefix += cur.val
-            m.setdefault(prefix, cur).next = cur = cur.next
+            node = seen.get(prefix, cur)
+            while prefix in seen:
+                seen.popitem()
+            seen[prefix] = node
+            node.next = cur = cur.next
         return dummy.next
