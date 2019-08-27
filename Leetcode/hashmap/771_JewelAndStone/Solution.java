@@ -1,18 +1,14 @@
-class Solution {   
-    public int numJewelsInStones(String J, String S) {       
-        /* long solution using hashset */               
-        HashSet<Character> jewel = new HashSet<Character>();       
-        char[] j = J.toCharArray();
-        char[] s = S.toCharArray();       
-        for (int i = 0; i<j.length; i++){
-            jewel.add(j[i]);
-        }       
-        int res = 0;       
-        for(int i = 0; i<s.length; i++){           
-            if(jewel.contains(s[i])){
-                res++;           
-            }       
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        Set<Character> set = new HashSet<>();
+        for(Character c: J.toCharArray()){
+            set.add(c);
+        }
+        int res = 0;
+        for(Character c: S.toCharArray()){
+            if(set.contains(c))
+                res++;
         }
         return res;
+    }
 }
-
