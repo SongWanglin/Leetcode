@@ -4,10 +4,20 @@ class Solution(object):
         :type words: List[str]
         :rtype: List[str]
         """
-        line1, line2, line3 = set('qwertyuiop'), set('asdfghjkl'), set('zxcvbnm')
-        ret = []
-        for word in words:
-          w = set(word.lower())
-          if w <= line1 or w <= line2 or w <= line3:
-            ret.append(word)
-        return ret
+        """
+        row1 = set("qwertyuiopQWERTYUIOP")
+        row2 = set("asdfghjklASDFGHJKL")
+        row3 = set("ZXCVBNMzxcvbnm")
+        return filter(lambda x: set(x).issubset(row1) or set(x).issubset(row2) or set(x).issubset(row3), words)
+        """
+        row1 = "qwertyuiop"
+        row2 = "asdfghjkl"
+        row3 = "zxcvbnm"
+        res = []
+        for s in words:
+            c1 = sum(map(s.lower().count, row1))
+            c2 = sum(map(s.lower().count, row2))
+            c3 = sum(map(s.lower().count, row3))
+            if (c1 and c2) + (c2 and c3) +(c1 and c3) == 0:
+                res.append(s)
+        return res
