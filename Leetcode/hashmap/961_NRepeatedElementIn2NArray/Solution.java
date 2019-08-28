@@ -1,16 +1,9 @@
-import java.util.HashMap;
 class Solution {
     public int repeatedNTimes(int[] A) {
-        //HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        int[] map = new int[10000];
-        for (int i= 0; i<A.length; i++){
-            //if (!map.containsKey(A[i]))
-            //    map.put(A[i], i);
-            //if (map.get(A[i]) != i)
-             //   return A[i];
-            if (map[A[i]]++ == 1)
+        for(int i = 2; i<A.length; i++){
+            if(A[i]==A[i-1]||A[i]==A[i-2])
                 return A[i];
         }
-        return -1;
+        return A[0];
     }
 }
