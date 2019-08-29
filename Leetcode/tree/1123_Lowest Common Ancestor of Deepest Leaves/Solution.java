@@ -7,7 +7,28 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
 class Solution {
+    public TreeNode lcaDeepestLeaves(TreeNode root){
+        TreeNode[] lca = {null};
+        int[] deepest = {0};
+        dfs(root, 0, lca, deepest);
+        return lca[0];
+    }
+        private int dfs(TreeNode root, int depth,
+                TreeNode[] lca, int[] deepest){
+                    deepest[0] = Math.max(deepest[0], depth);
+                    if(root==null){
+                        return depth;
+                    }
+                    int left = dfs(root.left, depth+1, lca, deepest);
+                    int right = dfs(root.right, depth+1, lca, deepest);
+                    if(left==right&&right==deepest[0]){
+                        lca[0] = root;
+                    }
+                    return Math.max(left, right);
+                }
+    /*/
     public TreeNode lcaDeepestLeaves(TreeNode root) {
         if(root==null)return null;
         List<TreeNode> list = new ArrayList<>();
@@ -36,5 +57,5 @@ class Solution {
             }else{
                 return right==null?left:root;
             }
-        }
+        }/*/
 }
