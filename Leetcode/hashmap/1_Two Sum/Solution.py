@@ -1,14 +1,13 @@
-class Solution:
+class Solution(object):
     def twoSum(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
         :rtype: List[int]
         """
-        map = dict();
-        for i in range ( len(nums)):
-            if nums[i] in map:
-                return [map[nums[i]] ,i]
-            else:
-                map[target-nums[i]] = i
-        return None;
+        dic = {}
+        for i, num in enumerate(nums):
+            if target-num in dic:
+                return [dic[target-num], i]
+            dic[num]=i
+        return [-1, -1]
