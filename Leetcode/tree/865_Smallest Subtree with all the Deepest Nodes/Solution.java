@@ -10,31 +10,12 @@
 class Solution {
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
         if(root==null) return null;
-        List<TreeNode> list = new ArrayList<>();
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        while(!q.isEmpty()){
-            list.clear();
-            for(int i=0,k=q.size();i<k;i++){
-                TreeNode node = q.poll();
-                list.add(node);
-                if(node.left!=null)q.offer(node.left);
-                if(node.right!=null)q.offer(node.right);
-            }
-        }
-        return dfs(list,root);
+        int left = depth(root.left), right = depth(root.right);
+        return (left==right)? root: (left > right)?subtreeWithAllDeepest(root.left):
+                subtreeWithAllDeepest(root.right);
     }
-        private TreeNode dfs(List<TreeNode> list,TreeNode root){
-            if(root==null) return null;
-            if(list.contains(root)){
-                return root;
-            }
-            TreeNode left = dfs(list,root.left);
-            TreeNode right = dfs(list,root.right);
-            if(left==null){
-                return right;
-            }else{
-                return right==null?left:root;
-            }
+        private int depth(TreeNode root){
+            if(root==null) return 0;
+            return 1+Math.max(depth(root.left), depth(root.right));
         }
 }
