@@ -6,19 +6,20 @@
 #         self.right = None
 
 class Solution(object):
-    def findFrequentTreeSum(self, root):
+    def findMode(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
         """
-        if not root: return []
-        dic = collections.defaultdict(int)
-        res = []
-        def dfs(root, dic):
-            if not root: return 0
-            root.val += dfs(root.left, dic)+dfs(root.right, dic)
-            dic[root.val] += 1
-            return root.val
-        dfs(root, dic)
-        freq = max(dic.values())
-        return [key for key in dic if dic[key]==freq]
+        if not root:
+            return []
+        count = collections.Counter()
+        self.dfs(root, count)
+        max_count = max(count.itervalues())
+        return [k for k, v in count.iteritems() if v == max_count]
+
+    def dfs(self, root, count):
+        if not root: return
+        self.dfs(root.left,count)
+        count[root.val] += 1
+        self.dfs(root.right, count)
