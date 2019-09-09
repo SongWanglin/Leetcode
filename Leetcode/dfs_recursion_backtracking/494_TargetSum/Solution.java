@@ -1,12 +1,22 @@
-class Solution {/*/ //dynamic programming
+class Solution {
     public int findTargetSumWays(int[] nums, int S){
         int sum = 0;
         for(int num: nums) sum+=num;
-        int[] dp = new int[2*sum+1];
-
-        return dp[sum+S];
+        if(Math.abs(S)>sum) return 0;
+        int[][] dp = new int[nums.length+1][2*sum+1];
+        dp[0][sum] = 1;
+        for(int i = 0; i<nums.length; ++i){
+            for(int j = 0; j<2*sum+1; ++j){
+                if(dp[i][j]!=0){
+                    dp[i+1][j-nums[i]] += dp[i][j];
+                    dp[i+1][j+nums[i]] += dp[i][j];
+                }
+            }
+        }
+        return dp[nums.length][S+sum];
     }
-    /*///brute force dfs
+
+    /*/// brute force dfs
     public int findTargetSumWays(int[] nums, int S) {
         int[] res = new int[1];
         dfs(nums, 0, S, res);
@@ -20,5 +30,5 @@ class Solution {/*/ //dynamic programming
             }
             dfs(nums, index+1, S-nums[index], res);
             dfs(nums, index+1, S+nums[index], res);
-        }
+        }/*/
 }
