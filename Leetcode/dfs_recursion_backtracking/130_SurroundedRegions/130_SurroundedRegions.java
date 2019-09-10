@@ -25,5 +25,4 @@ class Solution {
         grid[i][j] = 'x';
         return DFS(grid, i-1, j)|DFS(grid, i+1, j)| DFS(grid, i, j-1)|DFS(grid, i, j+1);
     }
-
 }
