@@ -1,29 +1,30 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList[] graph = new ArrayList[numCourses];
-        boolean[] visited = new boolean[numCourses];
-        for(int i = 0; i<numCourses; i++){
-            graph[i] = new ArrayList();
+    public boolean canFinish(int n, int[][] prerequisites) {
+        boolean[] res = {true};
+        int[] visited = new int[n];
+        List<ArrayList<Integer>> graph = new ArrayList<>();
+        for(int i = 0; i<n; ++i){
+            graph.add(new ArrayList<Integer>());
         }
-        for(int i = 0; i<prerequisites.length; i++){
-            graph[ prerequisites[i][1] ].add(prerequisites[i][0]);
+        for(int[] preq: prerequisites){
+            graph.get(preq[0]).add(preq[1]);
         }
-        for(int i = 0; i<numCourses; i++){
-            if(!dfs(graph, visited, i)){
-                return false;
-            }
+        for(int i = 0; i<n; ++i){
+            dfs(res, visited, i, graph);
         }
-        return true;
+        return res[0];
     }
-        private boolean dfs(ArrayList[] graph, boolean[] visited, int course){
-            if(visited[course])
-                return false;
-            visited[course] = true;
-            for(int i = 0; i<graph[course].size(); i++){
-                if( !dfs(graph, visited, (int)graph[course].get(i)) )
-                    return false;
+        private void dfs(boolean[] res, int[] visited, int src,
+                         List<ArrayList<Integer>> graph){
+            visited[src] = 1;
+            for(int dest: graph.get(src)){
+                if(visited[dest]==1){
+                    res[0] = false;
+                }
+                if(visited[dest]==0){
+                    dfs(res, visited, dest, graph);
+                }
             }
-            visited[course] = false;
-            return true;
+            visited[src] = -1;
         }
 }
