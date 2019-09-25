@@ -1,21 +1,20 @@
-public class Solution{
-    public int[] intersect(int[] nums1, int[] nums2){
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        ArrayList<Integer> res = new ArrayList<Integer>();
-        for(int i = 0; i<nums1.length; i++){
-            if(map.containsKey(nums1[1])) map.put(nums1[i], map.get(nums1[i])+1);
-            else map.put(nums1[i], 1);
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map2 = new HashMap<>();
+        for(int num: nums1){
+            map.put(num, map.getOrDefault(num, 0)+1);
         }
-        for(int i = 0; i<nums2.length; i++{
-            if(map.containsKey(nums2[i]) && map.get(nums2[i])>0 ){
-                res.add(nums2[i]);
-                map.put(nums2[i], map.get(nums2[i])-1);
-            }
+        for(int num: nums2){
+            map2.put(num, map2.getOrDefault(num, 0)+1);
         }
-        int[] r = new int[res.size()];
-        for(int i = 0; i<res.size(); i++){
-            r[i] = res.get(i);
+        List<Integer> res = new LinkedList<>();
+        for(int num: map.keySet()){
+            if(!map2.containsKey(num))
+                continue;
+            for(int i = 0; i<Math.min(map.get(num), map2.get(num)); ++i)
+                res.add(num);
         }
-        return r;
+        return res.stream().mapToInt(e->(int) e).toArray();
     }
 }
