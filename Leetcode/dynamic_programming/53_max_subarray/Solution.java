@@ -1,16 +1,10 @@
 class Solution {
-    public int maxSubArray(int[] nums) {
-        int result = Integer.MIN_VALUE;
-        int maxEndAt = 0;
-        for (int i = 0; i<nums.length ; i++){
-            maxEndAt = maxEndAt + nums[i];
-            if ( maxEndAt > result){
-                result = maxEndAt;                                         
-            }
-            if ( maxEndAt <0){
-                maxEndAt = 0;
-            }
+    public int maxSubArray(int[] A) {
+        int maxSoFar=Integer.MIN_VALUE, maxEndingHere=0;
+        for (int i=0;i<A.length;++i){
+            maxEndingHere= Math.max(maxEndingHere+A[i],A[i]);
+            maxSoFar=Math.max(maxSoFar, maxEndingHere);
         }
-        return result;
+        return maxSoFar;
     }
 }

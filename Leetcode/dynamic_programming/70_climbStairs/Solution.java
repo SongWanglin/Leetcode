@@ -1,14 +1,12 @@
 class Solution {
     public int climbStairs(int n) {
-        int fib_dp[] = new int[n];
-        fib_dp[0] = 1;
-        if (n==1){
-            return fib_dp[0];
+        int[] dp = new int[2];
+        dp[0] = 1; dp[1] = 1;
+        for(int i = 0; i<n; ++i){
+            int temp = dp[0]+dp[1];
+            dp[0] = dp[1];
+            dp[1] = temp;
         }
-        fib_dp[1] = 2;  
-        for (int i=2; i<n ;i++){
-            fib_dp[i] = fib_dp[i-1] + fib_dp[i-2];
-        }
-        return fib_dp[n-1];
+        return dp[0];
     }
 }
