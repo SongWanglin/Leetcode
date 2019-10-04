@@ -1,14 +1,14 @@
 class NumArray {
-    public int[] sums;
+    int[] dp;
     public NumArray(int[] nums) {
-        this.sums = new int[nums.length+1];
-        for (int i = 0; i<nums.length; i++){
-            sums[i+1] = sums[i]+nums[i];
+        dp = new int[nums.length+1];
+        for(int i = 0; i<nums.length; ++i){
+            dp[i+1] = dp[i] + nums[i];
         }
     }
 
     public int sumRange(int i, int j) {
-        return sums[j+1]-sums[i];
+        return dp[j+1]-dp[i];
     }
 }
 
