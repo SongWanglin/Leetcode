@@ -5,14 +5,14 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        def dfs(temp, sumOfTemp):
-            if sumOfTemp >= target:
-                list.sort(temp)
-                if sumOfTemp == target and not temp in res:
-                    res.append(temp)
+        def dfs(temp, preSum, candidates):
+            if preSum < 0:
                 return
-            for num in candidates:
-                dfs(temp+[num], sumOfTemp+num)
+            if preSum==0:
+                res.append(temp)
+                return
+            for i in range(len(candidates)):
+                dfs(temp+[candidates[i]], preSum-candidates[i], candidates[i:])
         res = []
-        dfs([], 0)
+        dfs([], target, candidates)
         return res
