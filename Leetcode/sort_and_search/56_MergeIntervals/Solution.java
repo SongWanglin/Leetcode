@@ -1,29 +1,32 @@
-/**
- * Definition for an interval.
- * public class Interval {
- *     int start;
- *     int end;
- *     Interval() { start = 0; end = 0; }
- *     Interval(int s, int e) { start = s; end = e; }
- * }
- */
 class Solution {
-    public List<Interval> merge(List<Interval> intervals) {
-        if (intervals.size()<2)
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length<2)
             return intervals;
-        intervals.sort((i1, i2) -> Integer.compare(i1.start, i2.start));
-        List<Interval> res = new ArrayList<Interval>();
-        Interval temp = intervals.get(0), temp2 = temp;
-        for (int i=1; i<intervals.size(); i++){
-            temp2 = intervals.get(i);
-            if(temp2.start<=temp.end){
-                temp.end = Math.max(temp2.end, temp.end);
-            } else{
-                res.add(temp);
-                temp = temp2;
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                return a[0]-b[0];
             }
+        });
+        List<int[]> list = new LinkedList<>();
+        int[] temp = intervals[0];
+        for(int i = 1; i<intervals.length; ++i){
+            if (temp[1]>=intervals[i][0]){
+                int[] temp2 = mergeInterval(temp, intervals[i]);
+                temp = temp2;
+            }else{
+                list.add(temp);
+                temp = intervals[i];
+            }
+            if(i==intervals.length-1)
+                list.add(temp);
         }
-        res.add(temp);
+        int[][] res = new int[list.size()][2];
+        for(int i = 0; i<res.length; ++i){
+            res[i] = list.get(i);
+        }
         return res;
+    }
+    private int[] mergeInterval(int[] interval1, int[] interval2){
+        return new int[] {Math.min(interval1[0], interval2[0]), Math.max(interval1[1], interval2[1])};
     }
 }
