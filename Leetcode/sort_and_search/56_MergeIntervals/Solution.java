@@ -30,3 +30,5 @@ class Solution {
         return new int[] {Math.min(interval1[0], interval2[0]), Math.max(interval1[1], interval2[1])};
     }
 }
+
+
