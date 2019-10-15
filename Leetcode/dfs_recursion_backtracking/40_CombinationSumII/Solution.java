@@ -1,57 +1,26 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(candidates);
-        dfs(res, new ArrayList<Integer>(), candidates, target, 0);
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(res, new LinkedList<Integer>(), candidates, 0, target);
         return res;
     }
-        private void dfs(List<List<Integer>> res, List<Integer> preCombine,
-                         int[] candidates, int preSum, int start){
-            if(preSum == 0){
-                /*/Collections.sort(preCombine);
-                for(List l: res){
-                    if( preCombine.equals( l ))
-                        return;
-                }/*/
-                res.add( new ArrayList<>(preCombine) );
-                return;
-            }
-            if( preSum < 0 || start==candidates.length){
-                return;
-            }
-            for(int i = start;  i< candidates.length; ++i){
-                if(candidates[i]<0){
-                    continue;
-                }
-                if(i!=start && candidates[i]==candidates[i-1]){
-                    continue;
-                }
-                preCombine.add(candidates[i]);
-                candidates[i] = -candidates[i];
-                dfs(res, preCombine, candidates, preSum+candidates[i], i+1);
-                preCombine.remove(preCombine.size()-1);
-                candidates[i] = -candidates[i];
-            }
-        }
-}
-/*/
-        if (target == 0) {
-            res.add(new ArrayList<>(list));
+    private void dfs(List<List<Integer>> res, LinkedList<Integer> temp,
+                    int[] candidates, int start, int preSum){
+        if(preSum<0){
             return;
         }
-        if (index == candidates.length) {
+        else if(preSum==0 && !res.contains(temp)){
+            res.add(new LinkedList<Integer>(temp));
             return;
         }
-        for (int i = index; i < candidates.length; i++) {
-            if (i != index && !visited[i - 1] && candidates[i] == candidates[i - 1]) {
-                continue;
-            }
-            if (target < candidates[i]) {
+        for(int i = start; i<candidates.length; ++i){
+            if(preSum-candidates[i]<0)
                 break;
-            }
-            visited[i] = true;
-            list.add(candidates[i]);
-            helper(i + 1, list, candidates, target - candidates[i], res, visited);
-            visited[i] = false;
-            list.remove(list.size() - 1);
-        }/*/
+            temp.add(candidates[i]);
+            dfs(res, temp, candidates, i+1, preSum-candidates[i]);
+            temp.pollLast();
+            while(i<candidates.length-1 && candidates[i]==candidates[i+1]) ++i;
+        }
+    }
+}
