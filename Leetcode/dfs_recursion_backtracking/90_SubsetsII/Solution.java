@@ -1,33 +1,24 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        res.add(new ArrayList<Integer>());
-        if(nums.length==0)
-            return res;
+        List<List<Integer>> res = new LinkedList<>();
         Arrays.sort(nums);
-        boolean[] used = new boolean[nums.length];
-        for(int i = 0; i<nums.length; i++){
-            dfs(nums, 0, i, used, res, new ArrayList<Integer>() );
-            }
+        for(int i = 0; i<=nums.length; ++i){
+            dfs(res, new LinkedList<Integer>(), nums, 0, i);
+        }
         return res;
     }
-        private void dfs(int[] nums, int start, int end, boolean[] used,
-                        List<List<Integer>> res, List<Integer> preCombine){
-            if(start > end){
-                for(List l: res){
-                    if(l.equals(preCombine))
-                        return;
-                }
-                res.add(new ArrayList<>(preCombine));
-                return;
-            }
-            for(int i = start;  i< nums.length; ++i){
-                if(used[i]==true){
-                    continue;
-                }
-                preCombine.add( nums[i]);  used[i] = true;
-                dfs(nums, i+1, end, used, res, preCombine);
-                preCombine.remove(preCombine.size()-1);  used[i] = false;
-            }
+    private void dfs(List<List<Integer>> res, LinkedList<Integer> temp,
+                    int[] nums, int start, int k){
+        if(k==0){
+            res.add(new LinkedList<Integer>(temp));
+            return;
         }
+        for(int i = start; i<nums.length; ++i){
+            if(i>start && nums[i-1]==nums[i])
+                continue;
+            temp.add(nums[i]);
+            dfs(res, temp, nums, i+1, k-1);
+            temp.pollLast();
+        }
+    }
 }
