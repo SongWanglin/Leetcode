@@ -5,6 +5,8 @@ class Solution(object):
         :rtype: List[str]
         """
         def dfs(left, right, temp):
+            if left > n or right > n:
+                return
             if left==n and right==n:
                 res.append(temp)
                 return

@@ -6,6 +6,8 @@ class Solution {
     }
     private void dfs(int left, int right,
                      String temp, List<String> res){
+        if(left<0 || right<0)
+            return;
         if(left==0 && right==0){
             res.add(temp);
             return;
