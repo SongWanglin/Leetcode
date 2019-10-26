@@ -12,7 +12,6 @@ class Solution {
                 leaves.add(i);
             }
         }
-        // just like peeling an onion
         while(n>2){
             List<Integer> newLeaves = new ArrayList<>();
             for(int leave: leaves){
