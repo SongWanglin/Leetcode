@@ -1,16 +1,19 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        for (int i = 1; i<=numRows; i++){
-            ArrayList<Integer> row = new ArrayList<Integer>();
-            for (int j = 0; j<i; j++){
-                if(j == 0 || j == i-1){
-                    row.add(1);
-                } else{
-                    row.add( res.get(i-2).get(j-1) + res.get(i-2).get(j) );
-                }
+        if(numRows==0)
+            return new LinkedList<List<Integer>>();
+        List<List<Integer>> res = generate(numRows-1);
+        LinkedList<Integer> temp = new LinkedList<>();
+        temp.add(1);
+        if(numRows==1){
+            res.add(temp);
+        }else{
+            List<Integer> last = res.get(res.size()-1);
+            for(int i = 0; i<last.size()-1; ++i){
+                temp.add(last.get(i)+last.get(i+1));
             }
-            res.add(row);
+            temp.add(1);
+            res.add(temp);
         }
         return res;
     }
