@@ -1,16 +1,16 @@
 class Solution {
     public String addBinary(String a, String b) {
-        StringBuilder res = new StringBuilder();
-        int digit = 0, addOne = 0, i = 0, l1 = a.length()-1, l2 = b.length()-1;
-        while( i<a.length() || i<b.length() || addOne!=0){
-            int first= (i< a.length())? Character.getNumericValue(a.charAt(l1-i)): 0 ;
-            int last = (i<b.length())? Character.getNumericValue(b.charAt(l2-i)): 0 ;
-            digit = first+last+addOne;
-            int current = digit%2;
-            addOne = digit/2;
-            res.append(current);
-            i++;
+        int aLen = a.length(), bLen = b.length();
+        if(bLen==0)
+            return a;
+        if(aLen==0)
+            return b;
+        if(a.charAt(aLen-1)=='1' && b.charAt(bLen-1)=='1'){
+            return addBinary(addBinary(a.substring(0, aLen-1), b.substring(0, bLen-1)), "1")+"0";
+        }else if(a.charAt(aLen-1)=='0' && b.charAt(bLen-1)=='0'){
+            return addBinary(a.substring(0, aLen-1), b.substring(0, bLen-1))+"0";
+        }else{
+            return addBinary(a.substring(0, aLen-1), b.substring(0, bLen-1))+"1";
         }
-        return res.reverse().toString();
     }
 }
