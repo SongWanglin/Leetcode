@@ -30,6 +30,7 @@ Return the number of **nice** sub-arrays.
 
  
 
+
 **Constraints:**
 
 - 1 &lt;= nums.length &lt;= 50000
