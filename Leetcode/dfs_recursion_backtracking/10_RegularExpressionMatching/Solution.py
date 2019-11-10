@@ -5,12 +5,13 @@ class Solution(object):
         :type p: str
         :rtype: bool
         """
-        if not p:
-            return not s
-        if not s:
-            return (not p) or self.isMatch(s, p[2:]) if len(p)>1 and p[1]=='*' else False
-        if p[0]!='.' and s[0]!=p[0]:
-            return self.isMatch(s, p[2:]) if len(p)>1 and p[1]=='*' else False
-        if len(p)>1 and p[1]=='*':
-            return self.isMatch(s[1:], p) or self.isMatch(s, p[2:])
-        return self.isMatch(s[1:], p[1:])
+        if not pattern:
+            return not text
+
+        first_match = bool(text) and pattern[0] in {text[0], '.'}
+
+        if len(pattern) >= 2 and pattern[1] == '*':
+            return (self.isMatch(text, pattern[2:]) or
+                    first_match and self.isMatch(text[1:], pattern))
+        else:
+            return first_match and self.isMatch(text[1:], pattern[1:])
