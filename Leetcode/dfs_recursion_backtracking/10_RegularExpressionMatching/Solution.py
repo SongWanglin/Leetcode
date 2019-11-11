@@ -15,3 +15,5 @@ class Solution(object):
                     first_match and self.isMatch(text[1:], pattern))
         else:
             return first_match and self.isMatch(text[1:], pattern[1:])
+
+
